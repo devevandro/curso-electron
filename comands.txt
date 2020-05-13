@@ -1,0 +1,9 @@
+criando os pacotes do projetos;
+* npm init;
+
+instalar electron:
+*npm install electron@version;
+
+rodar um app:
+* mudar o script para: "start": "electron .";
+* npm start;
