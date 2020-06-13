@@ -7,6 +7,9 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./photon/css/photon.css">
 
+    <!--fonte-->>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
     <style>
         textarea {
             width: 100%; 
@@ -15,6 +18,7 @@
             border: none; 
             outline: none; 
             font-size: 20px;
+            font-family: 'Special Elite', cursive;
         }
     </style>
 
@@ -54,14 +58,19 @@
     </div>
 
     <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+
         //aumentar ou diminuir fonte
         let textArea = document.querySelector('textarea');
         let defaultFontSize = 20;
 
+        //aumentar tamanho fonte
         function increaseFont() {
             textArea.style.fontSize= `${++defaultFontSize}px`;
         }
 
+        //diminuir tamanho da fonte
         function decreaseFont() {
             textArea .style.fontSize = `${--defaultFontSize}px`;
         }
@@ -70,7 +79,28 @@
         function saveText() {
             let text = textArea.value;
             console.log(text);
+            ipcRenderer.send('save', text);
         }
+
+        //enviando o texto para o main.js
+        ipcRenderer.on('saved', (event, results) => {
+            if(results === 'success') {
+                console.log('not successfully');
+                textArea.style.backgroundColor = '#b2ff99';
+            }else {
+                console.log('error saving text');
+                textArea.style.backgroundColor = '#ff8989';
+            }
+            
+            //tempo para salvar o arquivo
+            setTimeout(function(){
+                textArea.style.backgroundColor = '';
+            }, 1000);
+        });
+
+        ipcRenderer.on('save-clicked', () => {
+            saveText();
+        });
     </script>
 </body>
 

@@ -1,3 +1,5 @@
+editor:
+
 criando os pacotes do projetos;
 * npm init;
 
@@ -7,3 +9,10 @@ instalar electron:
 rodar um app:
 * mudar o script para: "start": "electron .";
 * npm start;
+
+node fs: manipulação de arquivos com node
+
+=================================================
+musica:
+
+
